@@ -3,12 +3,17 @@ import time
 import subprocess
 import time
 #import serial
-#from roboclaw import Roboclaw
+from roboclaw import Roboclaw
+
+Frontal = Roboclaw("/dev/ttyACM0",115200) #Para los motores frontales
+Trasero = Roboclaw("/dev/ttyACM1",115200) #Para los motores traseros
+Frontal.Open()
+Trasero.Open()
+address = 0x80
 
 ### FORWARD
 def FORWARD():
     print("\nFORWARD ⇧\n")
-    """
     rep=0
     while(rep<1):
         Frontal.ForwardM1(address,64)   #1/4 power forward
@@ -22,12 +27,11 @@ def FORWARD():
         Trasero.ForwardBackwardM1(address,64)   #Stopped
         Trasero.ForwardBackwardM2(address,64)   #Stopped
         time.sleep(2)
-        rep=rep+1"""
+        rep=rep+1
 
 ### REVERSE
 def REVERSE():
     print("\nREVERSE ⇩\n")
-    """
     rep=0
     while(rep<1):
         Frontal.BackwardM1(address,64)   #1/4 power backward
@@ -41,12 +45,11 @@ def REVERSE():
         Trasero.ForwardBackwardM1(address,64)   #Stopped
         Trasero.ForwardBackwardM2(address,64)   #Stopped
         time.sleep(2)
-        rep=rep+1"""
+        rep=rep+1
 
 ### RIGHT SHIFT
 def RIGHT():
     print("\nRIGHT ⇨\n")
-    """
     rep=0
     while(rep<1):
         Frontal.ForwardM1(address,64)   #1/4 power forward
@@ -60,12 +63,11 @@ def RIGHT():
         Trasero.ForwardBackwardM1(address,64)   #Stopped
         Trasero.ForwardBackwardM2(address,64)   #Stopped
         time.sleep(2)
-        rep=rep+1"""
+        rep=rep+1
 
 ### LEFT SHIFT
 def LEFT():
     print("\nLEFT ⇦\n")
-    """
     rep=0
     while(rep<1):
         Frontal.BackwardM1(address,64)   #1/4 power backward
@@ -79,12 +81,11 @@ def LEFT():
         Trasero.ForwardBackwardM1(address,64)   #Stopped
         Trasero.ForwardBackwardM2(address,64)   #Stopped
         time.sleep(2)
-        rep=rep+1"""
+        rep=rep+1
 
 ### CW TURN
 def CW():
     print("\nCW ↻\n")
-    """
     rep=0
     while(rep<1):
         Frontal.ForwardM1(address,64)   #1/4 power forward
@@ -98,12 +99,11 @@ def CW():
         Trasero.ForwardBackwardM1(address,64)   #Stopped
         Trasero.ForwardBackwardM2(address,64)   #Stopped
         time.sleep(2)
-        rep=rep+1"""
+        rep=rep+1
 
 ### CCW TURN
 def CCW():
     print("\nCCW ↺\n")
-    """
     rep=0
     while(rep<1):
         Frontal.BackwardM1(address,64)   #1/4 power backward
@@ -117,12 +117,11 @@ def CCW():
         Trasero.ForwardBackwardM1(address,64)   #Stopped
         Trasero.ForwardBackwardM2(address,64)   #Stopped
         time.sleep(2)
-        rep=rep+1"""
+        rep=rep+1
 
 ### N0 TURN
 def NO():
     print("\nNO ⇖\n")
-    """
     rep=0
     while(rep<1):
         Frontal.ForwardM2(address,64)   #1/4 power forward
@@ -132,12 +131,11 @@ def NO():
         Frontal.ForwardBackwardM2(address,64)   #Stopped
         Trasero.ForwardBackwardM1(address,64)   #Stopped
         time.sleep(2)
-        rep=rep+1"""
+        rep=rep+1
 
 ### SE TURN
 def SE():
     print("\nSE ⇘\n")
-    """
     rep=0
     while(rep<1):
         Frontal.BackwardM2(address,64)   #1/4 power backward
@@ -147,12 +145,11 @@ def SE():
         Frontal.ForwardBackwardM2(address,64)   #Stopped
         Trasero.ForwardBackwardM1(address,64)   #Stopped
         time.sleep(2)
-        rep=rep+1"""
+        rep=rep+1
 
 ### NE  TURN
 def NE():
     print("\nNE ⇗\n")
-    """
     rep=0
     while(rep<1):
         Frontal.ForwardM1(address,64)   #1/4 power forward
@@ -162,12 +159,11 @@ def NE():
         Frontal.ForwardBackwardM1(address,64)   #Stopped
         Trasero.ForwardBackwardM2(address,64)   #Stopped
         time.sleep(2)
-        rep=rep+1"""
+        rep=rep+1
 
 ### SO TURN
 def SO():
     print("\nSO ⇙\n")
-    """
     rep=0
     while(rep<1):
         Frontal.BackwardM1(address,64)   #1/4 power forward
@@ -177,19 +173,11 @@ def SO():
         Frontal.ForwardBackwardM1(address,64)   #Stopped
         Trasero.ForwardBackwardM2(address,64)   #Stopped
         time.sleep(2)
-        rep=rep+1"""
+        rep=rep+1
 
 def main():
-    #Windows comport name
-    #rc = Roboclaw("COM3",115200)
-    #Linux comport name
-    """Frontal = Roboclaw("/dev/ttyACM0",115200) #Para los motores frontales
-    Trasero = Roboclaw("/dev/ttyACM1",115200) #Para los motores traseros
-    Frontal.Open()
-    Trasero.Open()
-    address = 0x80"""
-    while(1):
 
+    while(1):
         subprocess.call(['tput', 'clear'])
         print("*******************************\n*** MOVIMIENTOS DEL MECANUM ***\n*******************************\n")
         print(" 0: Forward ⇧ \n 1: Reverse ⇩\n 2: Right   ⇨\n 3: Left    ⇦\n 4: CW      ↻\n 5: CCW     ↺\n 6: NO      ⇖\n 7: SO      ⇙\n 8: SE      ⇘\n 9: NE      ⇗\n")
@@ -199,11 +187,6 @@ def main():
             options = {0: FORWARD, 1: REVERSE, 2: RIGHT, 3: LEFT, 4: CW, 5: CCW, 6: NO, 7: SO, 8: SE, 9: NE}
             options[a]()
             time.sleep(2)
-            #b = input("Ingrese el segundo numero: ");
-            #c = input("Ingrese el tercer numero: ");
-            #Mm = Orden(a,b,c)
-            #men = Mm[0]
-            #may = Mm[1]
         else:
             print("\nEl número ingresado no es válido")
             time.sleep(2)
